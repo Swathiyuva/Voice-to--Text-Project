@@ -1,0 +1,85 @@
+/* App.css */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+}
+
+.App {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  border-radius: 20px;
+  background: #fff3e4;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s;
+}
+
+.App.dark {
+  background: #2c2c2c;
+  color: white;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+button {
+  margin: 10px 5px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  background-color: #ff6f91;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:hover {
+  background-color: #ff3e6c;
+  transform: translateY(-2px);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+}
+
+h2 {
+  margin-top: 30px;
+  font-size: 1.5rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 15px;
+}
+
+ul li {
+  background: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.App.dark ul li {
+  background: #3b3b3b;
+  color: white;
+}

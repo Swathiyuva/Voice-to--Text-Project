@@ -1,0 +1,20 @@
+{
+  "name": "voice-notes-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.848.0",
+    "@aws-sdk/lib-dynamodb": "^3.850.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
