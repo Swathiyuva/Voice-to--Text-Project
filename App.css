@@ -1,5 +1,4 @@
-/* App.css */
-
+/* Base styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,14 +12,24 @@ body {
   border-radius: 20px;
   background: #fff3e4;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s;
+  color: #000;
 }
 
+/* Dark mode */
 .App.dark {
   background: #2c2c2c;
   color: white;
 }
 
+/* Dark mode input/textarea */
+.App.dark textarea {
+  background-color: #3b3b3b;
+  color: white;
+  border: 1px solid #777;
+}
+
+/* Textarea */
 textarea {
   width: 100%;
   padding: 12px;
@@ -31,7 +40,24 @@ textarea {
   margin-bottom: 15px;
   box-sizing: border-box;
 }
+.note-input {
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
+.App.dark .note-input {
+  background-color: #3b3b3b;
+  color: white;
+  border: 1px solid #777;
+}
+
+
+/* Buttons */
 button {
   margin: 10px 5px;
   padding: 10px 18px;
@@ -50,6 +76,7 @@ button:hover {
   transform: translateY(-2px);
 }
 
+/* Headings */
 h1 {
   text-align: center;
   font-size: 2.2rem;
@@ -61,6 +88,7 @@ h2 {
   font-size: 1.5rem;
 }
 
+/* Notes list */
 ul {
   list-style-type: none;
   padding: 0;
@@ -79,11 +107,13 @@ ul li {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* Dark mode notes */
 .App.dark ul li {
   background: #3b3b3b;
   color: white;
 }
 
+/* Buttons row */
 .button-row {
   display: flex;
   justify-content: center;
@@ -93,6 +123,7 @@ ul li {
   margin-top: 15px;
 }
 
+/* Toggle button */
 .toggle-btn {
   padding: 10px 18px;
   background-color: #6c63ff;
@@ -110,7 +141,7 @@ ul li {
   transform: translateY(-2px);
 }
 
-
+/* Note card */
 .note-container {
   background: #fff;
   margin: 10px 0;
@@ -119,6 +150,13 @@ ul li {
   box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Dark mode note */
+.App.dark .note-container {
+  background: #3b3b3b;
+  color: white;
+}
+
+/* Speak button */
 .speak-btn {
   margin-top: 8px;
   background: #4caf50;
@@ -128,6 +166,8 @@ ul li {
   border-radius: 6px;
   cursor: pointer;
 }
+
+/* Note actions */
 .note-actions {
   margin-top: 5px;
   display: flex;
@@ -145,5 +185,3 @@ ul li {
 .note-actions button:hover {
   opacity: 0.8;
 }
-
-

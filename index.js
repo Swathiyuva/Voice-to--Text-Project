@@ -1,24 +1,28 @@
-// server.js
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const bodyParser = require("body-parser");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
-const PORT = 5000;
+app.use(cors());
+app.use(express.json());
+
 const NOTES_FILE = "notes.json";
 
-app.use(cors());
-app.use(bodyParser.json());
-
-// Ensure notes.json file exists
-if (!fs.existsSync(NOTES_FILE)) {
-  fs.writeFileSync(NOTES_FILE, JSON.stringify([]));
+// Read notes from file
+function readNotes() {
+  try {
+    const data = fs.readFileSync(NOTES_FILE);
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
+  }
 }
 
-// Helper to read/write notes
-const readNotes = () => JSON.parse(fs.readFileSync(NOTES_FILE));
-const writeNotes = (notes) => fs.writeFileSync(NOTES_FILE, JSON.stringify(notes, null, 2));
+// Write notes to file
+function writeNotes(notes) {
+  fs.writeFileSync(NOTES_FILE, JSON.stringify(notes, null, 2));
+}
 
 // GET all notes
 app.get("/notes", (req, res) => {
@@ -26,48 +30,48 @@ app.get("/notes", (req, res) => {
   res.json(notes);
 });
 
-// POST a new note
-app.post("/note", (req, res) => {
-  const { id, text } = req.body;
-  if (!id || !text) {
-    return res.status(400).json({ message: "Invalid note data" });
-  }
+// CREATE a new note
+app.post("/notes", (req, res) => {
+  const { title, text } = req.body;
+  const newNote = {
+    id: uuidv4(),
+    title,
+    text,
+    timestamp: new Date().toISOString()
+  };
   const notes = readNotes();
-  notes.push({ id, text });
+  notes.push(newNote);
   writeNotes(notes);
-  res.json({ message: "Note saved successfully!" });
-});
-app.get("/notes", (req, res) => {
-  let notes = readNotes();
-  notes = notes.filter(note => note.text && note.text.trim() !== "");
-  writeNotes(notes); // remove permanently
-  res.json(notes);
+  res.status(201).json(newNote);
 });
 
-// DELETE note by ID
-app.delete('/notes/:id', (req, res) => {
-  const noteId = req.params.id;
-  const notes = readNotes();
-  const updatedNotes = notes.filter(note => note.id !== noteId);
-  writeNotes(updatedNotes);
-  res.status(200).json({ message: 'Note deleted' });
-});
-
-// PUT (update) note by ID
-app.put('/notes/:id', (req, res) => {
-  const noteId = req.params.id;
-  const { text } = req.body;
+// UPDATE a note by ID
+app.put("/notes/:id", (req, res) => {
+  const { title, text } = req.body;
   let notes = readNotes();
-  const index = notes.findIndex(note => note.id === noteId);
+  const index = notes.findIndex(note => note.id === req.params.id);
+
   if (index !== -1) {
+    notes[index].title = title;
     notes[index].text = text;
+    notes[index].timestamp = new Date().toISOString(); // ✅ update timestamp
     writeNotes(notes);
-    res.status(200).json({ message: 'Note updated' });
-  } else {
-    res.status(404).json({ message: 'Note not found' });
+    return res.json({ message: "Note updated" });
   }
+
+  res.status(404).json({ message: "Note not found" });
 });
 
+// DELETE a note by ID
+app.delete("/notes/:id", (req, res) => {
+  let notes = readNotes();
+  notes = notes.filter(note => note.id !== req.params.id);
+  writeNotes(notes);
+  res.json({ message: "Note deleted" });
+});
+
+// Start the server
+const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
